@@ -1,0 +1,11 @@
+﻿<input class="form-control" @onchange="HandleExtraName" placeholder="Enter Other Name" id="@Id" />
+
+@code{
+    [Parameter] public string? Id { get; set; }
+    [Parameter] public EventCallback<string> HandleExtraNameEvent { get; set; }
+    private async Task HandleExtraName(ChangeEventArgs e)
+    {
+        if (string.IsNullOrEmpty(e.Value.ToString())) return;
+        await HandleExtraNameEvent.InvokeAsync(e.Value.ToString());
+    }
+}

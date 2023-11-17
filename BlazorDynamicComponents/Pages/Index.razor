@@ -1,0 +1,65 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+<button class="btn btn-primary" @onclick="HandleForecast">Add Forecast</button>
+<hr/>
+@foreach (string id in ComponentIds)
+{
+    <FetchData Id="@id"></FetchData>
+}
+@code{
+    List<string> ComponentIds = new();
+    private void HandleForecast()
+    {
+        int id = 1;
+        ComponentIds.Add(id.ToString());
+        id++;
+    }
+}
+
+<hr/>
+<div class="row">
+   
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header"><button @onclick="AddExraField" class="btn btn-primary">Add Extra Text Box</button></div>
+            <div class="card-body">
+                <ol class="list-group">
+                    @foreach(string name in Names)
+                    {
+                        <li class="list-group-item">@name</li>
+                    }
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        @foreach (string id in TextBoxIds)
+        {
+            <Textbox Id="@id" HandleExtraNameEvent="HandleExtraNameEvent"></Textbox>
+        }
+    </div>
+</div>
+@code{
+    List<string> TextBoxIds = new();
+    private void AddExraField()
+    {
+        int id = 1;
+        TextBoxIds.Add(id.ToString());
+        id++;
+    }
+
+    List<string> Names = new();
+    private void HandleExtraNameEvent(string extraName)
+    {
+        Names.Add(extraName);
+    }
+
+}
